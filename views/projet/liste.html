@@ -1,0 +1,52 @@
+{{extend 'template.html'}} 
+
+{{ block contenu }}
+<br>
+<table class="table table-condensed">
+    <a class="primary" href="{{=URL('projet','create_projet')}}"><button type="button" class="btn rounded-pill btn-primary">Ajout</button></a>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Date Debut</th>
+            <th>Date Fin</th>
+            <th>Description</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{for row in projet:}}
+        <tr>
+            <td>
+                {{= row.id }}
+            </td>
+            <td>
+                {{= row.nom }}
+            </td>
+            <td>
+                {{= row.date_debut }}
+            </td>
+           
+            <td>
+                {{= row.date_fin }}
+            </td>
+            <td>
+                {{= row.description }}
+            </td>
+            <td style="text-align: center;">
+                <!--- <a href="{{=URL('projet','edit_projet',vars={'id': row.id})}}"><button type="button" class="btn rounded-pill btn-warning" >Modifier</button></a> -->
+                
+                <a href="{{=URL('edit_projet', args=[row.id])}}"><button type="button" class="btn rounded-pill btn-warning" >Modifier</button></a>
+
+                <a href="{{=URL('projet','delete_projet',vars={'id': row.id})}}"><button type="button" class="btn rounded-pill btn-danger">Supprimer</button></a>
+            </td>
+        </tr>
+        {{pass}}
+    </tbody>
+</table>
+{{ end }}
+
+{{  block  formulaire}}
+
+
+{{ end }}

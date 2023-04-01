@@ -1,0 +1,68 @@
+{{extend 'template.html'}} 
+
+{{ block contenu }}
+<br>
+<table class="table table-condensed">
+    <a class="primary" href="{{=URL('tache','create_tache')}}"><button type="button" class="btn rounded-pill btn-primary">Ajout</button></a>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tache </th>
+            <th>Assignée à </th>
+            <th>Phase </th>
+            <th>Date Debut</th>
+            <th>Date Fin</th>
+            <th>Pourcentage</th>
+            <th>Description</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{for row in tache:}}
+        <tr>
+            <td>
+                {{= row.id }}
+            </td>
+            <td>
+                {{= row.nom }}
+            </td>
+            <td>
+                {{= row.assignee.nom }}
+            </td>
+            <td>
+                {{= row.phase_id.nom }}
+            </td>
+            <td>
+                {{= row.date_debut }}
+            </td>
+           
+            <td>
+                {{= row.date_fin }}
+            </td>
+            
+            <td>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{=row.percentage}}%" aria-valuenow="{{=row.percentage}}" aria-valuemin="0" aria-valuemax="100">{{=row.percentage}}%</div>
+                  </div>
+            </td>
+            <td>
+                {{= row.description }}
+            </td>
+            
+              
+            <td style="text-align: center;">
+                
+                <a href="{{=URL('edit_tache', args=[row.id])}}"><button type="button" class="btn rounded-pill btn-warning" >Modifier</button></a>
+
+                <a href="{{=URL('tache','delete_tache',vars={'id': row.id})}}"><button type="button" class="btn rounded-pill btn-danger">Supprimer</button></a>
+            </td>
+        </tr>
+        {{pass}}
+    </tbody>
+</table>
+{{ end }}
+
+{{  block  formulaire}}
+
+
+{{ end }}

@@ -1,0 +1,96 @@
+timestamp: 2023-03-29T18:16:31.210809
+CREATE TABLE "auth_user"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "first_name" CHAR(128),
+    "last_name" CHAR(128),
+    "email" CHAR(512),
+    "password" CHAR(512),
+    "registration_key" CHAR(512),
+    "reset_password_key" CHAR(512),
+    "registration_id" CHAR(512)
+);
+success!
+timestamp: 2023-03-29T18:16:31.221366
+CREATE TABLE "auth_group"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "role" CHAR(512),
+    "description" TEXT
+);
+success!
+timestamp: 2023-03-29T18:16:31.227940
+CREATE TABLE "auth_membership"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE ON UPDATE CASCADE  
+);
+success!
+timestamp: 2023-03-29T18:16:31.235481
+CREATE TABLE "auth_permission"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "name" CHAR(512),
+    "table_name" CHAR(512),
+    "record_id" INTEGER
+);
+success!
+timestamp: 2023-03-29T18:16:31.243471
+CREATE TABLE "auth_event"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "time_stamp" TIMESTAMP,
+    "client_ip" CHAR(512),
+    "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "origin" CHAR(512),
+    "description" TEXT
+);
+success!
+timestamp: 2023-03-29T18:16:31.250978
+CREATE TABLE "auth_cas"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "created_on" TIMESTAMP,
+    "service" CHAR(512),
+    "ticket" CHAR(512),
+    "renew" CHAR(1)
+);
+success!
+timestamp: 2023-03-29T18:16:31.258540
+CREATE TABLE "projet"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nom" CHAR(512),
+    "description" TEXT,
+    "date_debut" DATE,
+    "date_fin" DATE
+);
+success!
+timestamp: 2023-03-29T18:24:17.561038
+CREATE TABLE "phase"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "projet_id" INTEGER REFERENCES "projet" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "nom" CHAR(512),
+    "description" TEXT,
+    "date_debut" DATE,
+    "date_fin" DATE
+);
+success!
+timestamp: 2023-03-29T18:24:17.576896
+CREATE TABLE "personne"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nom" CHAR(512),
+    "prenom" CHAR(512),
+    "email" CHAR(512),
+    "telephone" CHAR(512),
+    "adresse" CHAR(512)
+);
+success!
+timestamp: 2023-03-29T18:24:17.583444
+CREATE TABLE "tache"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "phase_id" INTEGER REFERENCES "phase" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "assignee" INTEGER REFERENCES "personne" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "nom" CHAR(512),
+    "description" TEXT,
+    "date_debut" DATE,
+    "date_fin" DATE,
+    "percentage" INTEGER
+);
+success!

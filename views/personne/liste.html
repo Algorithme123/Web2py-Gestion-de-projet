@@ -1,0 +1,55 @@
+{{extend 'template.html'}} 
+
+{{ block contenu }}
+<br>
+<table class="table table-condensed">
+    <a class="primary" href="{{=URL('personne','create_personne')}}"><button type="button" class="btn rounded-pill btn-primary">Ajout</button></a>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>Adresse</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{for row in personne:}}
+        <tr>
+            <td>
+                {{= row.id }}
+            </td>
+            <td>
+                {{= row.nom }}
+            </td>
+            <td>
+                {{= row.prenom }}
+            </td>
+            <td>
+                {{= row.email }}
+            </td>
+           
+            <td>
+                {{= row.telephone }}
+            </td>
+            <td>
+                {{= row.adresse }}
+            </td>
+            <td style="text-align: center;">
+                
+                <a href="{{=URL('edit_personne', args=[row.id])}}"><button type="button" class="btn rounded-pill btn-warning" >Modifier</button></a>
+
+                <a href="{{=URL('projet','delete_personne',vars={'id': row.id})}}"><button type="button" class="btn rounded-pill btn-danger">Supprimer</button></a>
+            </td>
+        </tr>
+        {{pass}}
+    </tbody>
+</table>
+{{ end }}
+
+{{  block  formulaire}}
+
+
+{{ end }}
